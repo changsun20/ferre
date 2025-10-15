@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/fatih/color"
 	"golang.org/x/sys/windows/registry"
 )
 
@@ -119,23 +120,23 @@ func Bootstrap() error {
 	if err := CreateDirectoryStructure(ferreHome); err != nil {
 		return err
 	}
-	fmt.Println("✓ Directory structure created")
+	color.Green("✓ Directory structure created")
 
 	appsDir := filepath.Join(ferreHome, "Applications", "apps")
 	fmt.Println("Copying ferre.exe...")
 	if err := CopyExecutable(appsDir); err != nil {
 		return err
 	}
-	fmt.Println("✓ Executable copied")
+	color.Green("✓ Executable copied")
 
 	ferreBinDir := filepath.Join(appsDir, "ferre")
 	fmt.Printf("Adding %s to PATH...\n", ferreBinDir)
 	if err := AddToUserPath(ferreBinDir); err != nil {
 		return err
 	}
-	fmt.Println("✓ Added to PATH")
+	color.Green("✓ Added to PATH")
 
-	fmt.Println("\n✓ Ferre has been successfully initialized!")
-	fmt.Println("\nPlease restart your terminal to use ferre.")
+	color.Green("✓ Ferre has been successfully initialized!")
+	color.White("Please restart your terminal to use ferre.")
 	return nil
 }
