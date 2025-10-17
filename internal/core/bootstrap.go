@@ -80,7 +80,7 @@ func AddToUserPath(dir string) error {
 	}
 
 	if contains(currentPath, dir) {
-		fmt.Printf("Ferre already add to path.\n")
+		color.Yellow("Ferre already add to path.\n")
 		return nil
 	}
 

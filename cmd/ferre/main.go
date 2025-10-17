@@ -18,6 +18,7 @@ func main() {
 			commands.InstallCmd,
 			commands.UninstallCmd,
 			commands.InitCmd,
+			commands.BucketCommand,
 		},
 	}
 
