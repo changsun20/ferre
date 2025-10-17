@@ -50,3 +50,30 @@ func InitializeMainBucket(path string) error {
 	}
 	return nil
 }
+
+func BucketRemoveAction(ctx context.Context, c *cli.Command) error {
+	if c.NArg() < 1 {
+		return fmt.Errorf("Error: Bucket name is required\n")
+	}
+
+	home, err := GetFerreHome()
+	if err != nil {
+		return fmt.Errorf("Error: %v\n", err)
+	}
+
+	bucketsDir := fmt.Sprintf("%s/Applications/buckets", home)
+
+	name := c.Args().Get(0)
+	bucketPath := fmt.Sprintf("%s/%s", bucketsDir, name)
+
+	if _, err := os.Stat(bucketPath); os.IsNotExist(err) {
+		return fmt.Errorf("Error: Bucket %s does not exist\n", name)
+	}
+
+	if err := os.RemoveAll(bucketPath); err != nil {
+		return fmt.Errorf("Error: Failed to remove bucket %s: %v\n", name, err)
+	}
+
+	color.Green("Bucket %s removed successfully\n", name)
+	return nil
+}

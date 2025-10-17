@@ -10,6 +10,7 @@ var BucketCommand = &cli.Command{
 	Usage: "Manage bucket operations",
 	Commands: []*cli.Command{
 		BucketAddCmd,
+		BucketRemoveCmd,
 	},
 }
 
@@ -18,4 +19,11 @@ var BucketAddCmd = &cli.Command{
 	Usage:     "Add a new bucket",
 	ArgsUsage: "<name> [<url>]",
 	Action:    core.BucketAddAction,
+}
+
+var BucketRemoveCmd = &cli.Command{
+	Name:      "rm",
+	Usage:     "Remove an existing bucket",
+	ArgsUsage: "<name>",
+	Action:    core.BucketRemoveAction,
 }
