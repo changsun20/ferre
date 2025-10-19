@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/fatih/color"
 	"github.com/go-git/go-git/v6"
 	"github.com/urfave/cli/v3"
 )
@@ -28,12 +27,12 @@ func BucketAddAction(ctx context.Context, c *cli.Command) error {
 		if err := os.MkdirAll(mainBucketPath, 0755); err != nil {
 			return fmt.Errorf("Error: %v\n", err)
 		}
-		color.Green("Main bucket created at %s\n", mainBucketPath)
+		Success("Main bucket created at %s\n", mainBucketPath)
 
 		if err := InitializeMainBucket(mainBucketPath); err != nil {
 			return fmt.Errorf("Error: %v\n", err)
 		}
-		color.Green("Main bucket initialized with default apps\n")
+		Success("Main bucket initialized with default apps\n")
 		return nil
 	}
 
@@ -74,6 +73,6 @@ func BucketRemoveAction(ctx context.Context, c *cli.Command) error {
 		return fmt.Errorf("Error: Failed to remove bucket %s: %v\n", name, err)
 	}
 
-	color.Green("Bucket %s removed successfully\n", name)
+	Success("Bucket %s removed successfully\n", name)
 	return nil
 }
