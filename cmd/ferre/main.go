@@ -20,6 +20,7 @@ func main() {
 			commands.InitCmd,
 			commands.BucketCommand,
 			commands.InfoCmd,
+			commands.SearchCmd,
 		},
 	}
 
