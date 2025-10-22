@@ -17,7 +17,7 @@ func GetFerreHome() (string, error) {
 	return filepath.Join(homeDir, "ferre"), nil
 }
 
-func CreateDirectoryStructure(ferreHome string) error {
+func createDirectoryStructure(ferreHome string) error {
 	dirs := []string{
 		filepath.Join(ferreHome, "Applications", "apps"),
 		filepath.Join(ferreHome, "Applications", "buckets"),
@@ -34,7 +34,7 @@ func CreateDirectoryStructure(ferreHome string) error {
 	return nil
 }
 
-func CopyExecutable(targetDir string) error {
+func copyExecutable(targetDir string) error {
 	exePath, err := os.Executable()
 	if err != nil {
 		return fmt.Errorf("failed to get executable path: %w", err)
@@ -66,7 +66,7 @@ func CopyExecutable(targetDir string) error {
 	return nil
 }
 
-func AddToUserPath(dir string) error {
+func addToUserPath(dir string) error {
 	key, err := registry.OpenKey(registry.CURRENT_USER, `Environment`, registry.QUERY_VALUE|registry.SET_VALUE)
 	if err != nil {
 		return fmt.Errorf("failed to open registry key: %w", err)
@@ -116,21 +116,21 @@ func Bootstrap() error {
 	fmt.Printf("Setting up Ferre at: %s\n", ferreHome)
 
 	fmt.Println("Creating directory structure...")
-	if err := CreateDirectoryStructure(ferreHome); err != nil {
+	if err := createDirectoryStructure(ferreHome); err != nil {
 		return err
 	}
 	Success("✓ Directory structure created")
 
 	appsDir := filepath.Join(ferreHome, "Applications", "apps")
 	fmt.Println("Copying ferre.exe...")
-	if err := CopyExecutable(appsDir); err != nil {
+	if err := copyExecutable(appsDir); err != nil {
 		return err
 	}
 	Success("✓ Executable copied")
 
 	ferreBinDir := filepath.Join(appsDir, "ferre")
 	fmt.Printf("Adding %s to PATH...\n", ferreBinDir)
-	if err := AddToUserPath(ferreBinDir); err != nil {
+	if err := addToUserPath(ferreBinDir); err != nil {
 		return err
 	}
 	Success("✓ Added to PATH")

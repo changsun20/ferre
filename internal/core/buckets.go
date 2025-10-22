@@ -29,7 +29,7 @@ func BucketAddAction(ctx context.Context, c *cli.Command) error {
 		}
 		Success("Main bucket created at %s\n", mainBucketPath)
 
-		if err := InitializeMainBucket(mainBucketPath); err != nil {
+		if err := initializeMainBucket(mainBucketPath); err != nil {
 			return fmt.Errorf("Error: %v\n", err)
 		}
 		Success("Main bucket initialized with default apps\n")
@@ -39,7 +39,7 @@ func BucketAddAction(ctx context.Context, c *cli.Command) error {
 	return nil
 }
 
-func InitializeMainBucket(path string) error {
+func initializeMainBucket(path string) error {
 	_, err := git.PlainClone(path, &git.CloneOptions{
 		URL:   "https://github.com/ScoopInstaller/Main.git",
 		Depth: 1,
