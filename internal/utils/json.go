@@ -26,3 +26,22 @@ func ParseManifestJSON(jsonPath string) (*Manifest, error) {
 	}
 	return &manifest, nil
 }
+
+type InstallInfo struct {
+	URL string `json:"url"`
+}
+
+func ParseInstallInfoJSON(jsonPath string) (*InstallInfo, error) {
+	file, err := os.Open(jsonPath)
+	if err != nil {
+		return nil, fmt.Errorf("failed to open install info file: %w", err)
+	}
+	defer file.Close()
+
+	var installInfo InstallInfo
+	decoder := json.NewDecoder(file)
+	if err := decoder.Decode(&installInfo); err != nil {
+		return nil, fmt.Errorf("failed to decode install info JSON: %w", err)
+	}
+	return &installInfo, nil
+}
