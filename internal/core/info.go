@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/changsun20/ferre/internal/utils"
+	"github.com/changsun20/ferre/internal/pkgs"
 	"github.com/urfave/cli/v3"
 )
 
@@ -28,7 +28,7 @@ func InfoAction(ctx context.Context, c *cli.Command) error {
 		return fmt.Errorf("Error: failed to access application %s: %v\n", name, err)
 	}
 
-	manifest, err := utils.ParseManifestJSON(filePath)
+	manifest, err := pkgs.ParseManifestJSON(filePath)
 	if err != nil {
 		return fmt.Errorf("Error: failed to parse manifest for %s: %v\n", name, err)
 	}

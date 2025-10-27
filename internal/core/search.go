@@ -7,7 +7,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/changsun20/ferre/internal/utils"
+	"github.com/changsun20/ferre/internal/pkgs"
 	"github.com/urfave/cli/v3"
 )
 
@@ -33,7 +33,7 @@ func SearchAction(ctx context.Context, c *cli.Command) error {
 			name := strings.TrimSuffix(d.Name(), ".json")
 
 			if strings.Contains(strings.ToLower(name), strings.ToLower(query)) {
-				manifest, parseErr := utils.ParseManifestJSON(filePath)
+				manifest, parseErr := pkgs.ParseManifestJSON(filePath)
 				if parseErr != nil {
 					return nil
 				}

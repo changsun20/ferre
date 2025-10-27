@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/changsun20/ferre/internal/utils"
+	"github.com/changsun20/ferre/internal/pkgs"
 	"github.com/urfave/cli/v3"
 )
 
@@ -30,7 +30,7 @@ func InstallAction(ctx context.Context, c *cli.Command) error {
 		return fmt.Errorf("Error: failed to access package %s: %v\n", packageName, err)
 	}
 
-	manifest, err := utils.ParseInstallInfoJSON(manifestPath)
+	manifest, err := pkgs.ParseInstallInfoJSON(manifestPath)
 	if err != nil {
 		return fmt.Errorf("Error: failed to parse manifest for %s: %v\n", packageName, err)
 	}
@@ -40,11 +40,11 @@ func InstallAction(ctx context.Context, c *cli.Command) error {
 
 	fmt.Printf("Installing package: %s\n", packageName)
 
-	err = utils.DownloadFile(manifest.URL, destPath)
+	err = pkgs.DownloadFile(manifest.URL, destPath)
 	if err != nil {
 		return fmt.Errorf("Error: failed to download package %s: %v\n", packageName, err)
 	}
 
-	Success("✓ Package %s installed successfully\n", packageName)
+	pkgs.Success("✓ Package %s installed successfully\n", packageName)
 	return nil
 }

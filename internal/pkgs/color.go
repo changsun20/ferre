@@ -1,4 +1,4 @@
-package core
+package pkgs
 
 import "github.com/fatih/color"
 

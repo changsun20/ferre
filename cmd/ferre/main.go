@@ -5,7 +5,7 @@ import (
 	"os"
 
 	"github.com/changsun20/ferre/internal/commands"
-	"github.com/fatih/color"
+	"github.com/changsun20/ferre/internal/pkgs"
 	"github.com/urfave/cli/v3"
 )
 
@@ -25,6 +25,6 @@ func main() {
 	}
 
 	if err := cmd.Run(context.Background(), os.Args); err != nil {
-		color.Red(err.Error())
+		pkgs.Error(err.Error())
 	}
 }

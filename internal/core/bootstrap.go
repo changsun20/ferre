@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/changsun20/ferre/internal/pkgs"
 	"golang.org/x/sys/windows/registry"
 )
 
@@ -79,7 +80,7 @@ func addToUserPath(dir string) error {
 	}
 
 	if contains(currentPath, dir) {
-		Warning("Ferre already add to path.\n")
+		pkgs.Warning("Ferre already add to path.\n")
 		return nil
 	}
 
@@ -119,23 +120,23 @@ func Bootstrap() error {
 	if err := createDirectoryStructure(ferreHome); err != nil {
 		return err
 	}
-	Success("✓ Directory structure created")
+	pkgs.Success("Directory structure created")
 
 	appsDir := filepath.Join(ferreHome, "Applications", "apps")
 	fmt.Println("Copying ferre.exe...")
 	if err := copyExecutable(appsDir); err != nil {
 		return err
 	}
-	Success("✓ Executable copied")
+	pkgs.Success("✓ Executable copied")
 
 	ferreBinDir := filepath.Join(appsDir, "ferre")
 	fmt.Printf("Adding %s to PATH...\n", ferreBinDir)
 	if err := addToUserPath(ferreBinDir); err != nil {
 		return err
 	}
-	Success("✓ Added to PATH")
+	pkgs.Success("✓ Added to PATH")
 
-	Success("✓ Ferre has been successfully initialized!")
+	pkgs.Success("✓ Ferre has been successfully initialized!")
 	fmt.Println("Please restart your terminal to use ferre.")
 	return nil
 }
